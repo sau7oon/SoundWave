@@ -1,0 +1,22 @@
+# Visual Studio
+.vs/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Django database
+*.sqlite3
+
+# Logs
+*.log
+
+# Virtual environment
+venv/
+.venv/
+
+# Environment variables
+.env
+
+# IDE
+.idea/ыыы
