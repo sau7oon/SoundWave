@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация SoundWave</title>
+</head>
+<body>
+    <h1>Регистрация</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+       
+        {% if form.errors %}
+        <div style="color: red;">
+            {{ form.errors }}
+        </div>
+        {% endif %}
+        
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+
+    <a href="/">На главную</a>
+</body>
+</html>

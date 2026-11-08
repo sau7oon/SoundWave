@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать запись</title>
+</head>
+<body>
+    <h1>Редактировать запись в теме: {{ topic.text }}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <textarea name="text" rows="5">{{ entry.text }}</textarea>
+        <button type="submit">Сохранить изменения</button>
+    </form>
+
+    <a href="{% url 'topic' topic.id %}">Вернуться к теме</a>
+</body>
+</html>
