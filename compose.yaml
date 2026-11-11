@@ -1,0 +1,31 @@
+﻿services:
+  web:
+    build: .
+    restart: unless-stopped
+    environment:
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:?Set DJANGO_SECRET_KEY in .env}
+      DJANGO_DEBUG: ${DJANGO_DEBUG:-False}
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:-localhost,127.0.0.1}
+      DJANGO_CSRF_TRUSTED_ORIGINS: ${DJANGO_CSRF_TRUSTED_ORIGINS:-}
+      SQLITE_PATH: /app/data/db.sqlite3
+    ports:
+      - "${APP_BIND_IP:-0.0.0.0}:${APP_PORT:?Set APP_PORT in .env}:8000"
+    volumes:
+      - soundwave_data:/app/data
+    command: >-
+      sh -c "python manage.py migrate --noinput &&
+             python manage.py collectstatic --noinput &&
+             exec gunicorn learning_log.wsgi:application
+             --bind 0.0.0.0:8000
+             --workers 1
+             --threads 4
+             --timeout 60"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import socket; s=socket.create_connection(('127.0.0.1', 8000), 5); s.close()"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+volumes:
+  soundwave_data:

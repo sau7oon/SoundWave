@@ -11,12 +11,16 @@ __pycache__/
 # Logs
 *.log
 
-# Virtual environment
+# Virtual environments
 venv/
 .venv/
+ll_env/
 
 # Environment variables
 .env
 
 # IDE
-.idea/ыыы
+.idea/
+
+# Docker
+staticfiles/
